@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chip Tuning Hesaplayıcı</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .admin-panel-button {
+            display: block;
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+            .admin-panel-button:hover {
+                background-color: #0056b3;
+            }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .input-group {
+            margin-top: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+        #result {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <a href="http://localhost:5159/adminpanel" class="admin-panel-button">Panel Giriş İçin Tıkla</a>
+    <div class="container">
+        <h1>Chip Tuning Hesaplayıcı</h1>
+        <div class="input-group">
+            <label for="carModel">Araç Modeli:</label>
+            <select id="carModel">
+                <option value="" selected disabled>Lütfen bir model seçin</option>
+                <option value="Audi">Audi </option>
+                <option value="BMW">BMW </option>
+                <option value="HONDA">Honda </option>
+                <option value="Reno">Renault </option>
+                <option value="Skoda">Skoda </option>
+                <option value="Seat">Seat </option>
+                <option value="Opel">Opel </option>
+                <option value="Porche">Porche </option>
+                <option value="Nissan">Nissan </option>
+                <option value="Mazda">Mazda </option>
+                <option value="Mercedes">Mercedes </option>
+
+
+                <!-- Diğer modeller buraya eklenebilir -->
+            </select>
+        </div>
+        <div class="input-group">
+            <label for="tuningLevel">Tuning Seviyesi:</label>
+            <select id="tuningLevel">
+                <option value="Stage 1">Stage 1</option>
+                <option value="Stage 2">Stage 2</option>
+                <option value="Stage 3">Stage 3</option>
+            </select>
+        </div>
+        <br />
+        <button id="calculate">Hesapla</button>
+        <div id="result"></div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const calculateButton = document.getElementById('calculate');
+            const resultDiv = document.getElementById('result');
+
+            calculateButton.addEventListener('click', function () {
+                const carModel = document.getElementById('carModel').value;
+                const tuningLevel = document.getElementById('tuningLevel').value;
+
+                if (carModel && tuningLevel) {
+                    const tuningResult = calculateTuning(carModel, tuningLevel);
+                    resultDiv.innerHTML = `${carModel} ${tuningLevel} tuning sonucu: ${tuningResult.tuned} HP (Stock: ${tuningResult.stock} HP)`;
+                } else {
+                    resultDiv.innerHTML = 'Lütfen tüm alanları doldurun.';
+                }
+            });
+
+            function calculateTuning(carModel, tuningLevel) {
+                const basePower = {
+                    Audi: 200,
+                    BMW: 250,
+                    HONDA: 200,
+                    Reno: 250,
+                    Skoda: 200,
+                    Seat: 250,
+                    Opel: 200,
+                    Porche: 250,
+                    Nissan: 200,
+                    Mazda: 250,
+                    Audi: 200,
+                    Mercedes: 250,
+                };
+
+                const tuningFactors = {
+                    'Stage 1': 1.2,
+                    'Stage 2': 1.35,
+                    'Stage 3': 1.5
+                };
+
+                const baseCarPower = basePower[carModel];
+                const factor = tuningFactors[tuningLevel];
+
+                return {
+                    stock: baseCarPower,
+                    tuned: Math.round(baseCarPower * factor)
+                };
+            }
+        });
+    </script>
+
+</body>
+</html>
+

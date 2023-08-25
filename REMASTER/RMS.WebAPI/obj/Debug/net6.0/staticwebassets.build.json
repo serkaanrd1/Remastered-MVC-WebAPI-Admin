@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "7RoBCrrbVn1QadTuuWG4vli3czMtrkFDIEzGwZZgRJs=",
+  "Source": "RMS.WebAPI",
+  "BasePath": "_content/RMS.WebAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

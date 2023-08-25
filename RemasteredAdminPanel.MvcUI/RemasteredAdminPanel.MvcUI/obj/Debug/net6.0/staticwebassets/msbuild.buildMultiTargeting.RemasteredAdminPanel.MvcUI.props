@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\RemasteredAdminPanel.MvcUI.props" />
+</Project>
